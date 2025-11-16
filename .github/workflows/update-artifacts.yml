@@ -1,6 +1,7 @@
 name: Update Artifacts
 
 on:
+  push:
   workflow_dispatch:
 
 jobs:
