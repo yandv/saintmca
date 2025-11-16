@@ -20,9 +20,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.mariaum</groupId>
-            <artifactId>zartema-api</artifactId>
-            <version>1.21-R0.5-SNAPSHOT</version>
+            <groupId>io.github.waterfallmc</groupId>
+            <artifactId>waterfall-api</artifactId>
+            <version>1.21-R0.3-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

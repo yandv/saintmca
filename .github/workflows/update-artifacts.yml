@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Precisamos do histórico completo para detectar mudanças
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -21,28 +19,21 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Detect changed modules
-        id: detect-changes
-        env:
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: |
-          chmod +x scripts/detect-changed-modules.sh
-          scripts/detect-changed-modules.sh
-        continue-on-error: true
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@v4
+        with:
+          maven-version: '3.9.5'
 
-      - name: Build changed modules
-        if: steps.detect-changes.outputs.changed != 'false'
+      - name: Build modules
         run: |
-          chmod +x scripts/build-changed-modules.sh
-          scripts/build-changed-modules.sh "${{ steps.detect-changes.outputs.changed }}"
+          chmod +x scripts/*.sh
+          scripts/build-changed-modules.sh "bukkit proxy"
 
       - name: Upload artifacts
-        if: steps.detect-changes.outputs.changed != 'false'
         env:
+          API_URL: ${{ secrets.API_URL }}
           API_TOKEN: ${{ secrets.API_TOKEN }}
         run: |
-          chmod +x scripts/upload-artifacts.sh
-          scripts/upload-artifacts.sh "${{ steps.detect-changes.outputs.changed }}"
+          chmod +x scripts/*.sh
+          scripts/upload-artifacts.sh "bukkit proxy"
 

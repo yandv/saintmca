@@ -23,13 +23,13 @@ echo "Building modules: $CHANGED_MODULES"
 # Se core precisa ser buildado (dependência), builda primeiro
 if echo "$CHANGED_MODULES" | grep -q "bukkit\|proxy"; then
   echo "Building core module (dependency)..."
-  mvn clean install -pl core -am -DskipTests
+  mvn clean install -pl core -am -DskipTests -U
 fi
 
 # Builda cada módulo alterado
 for MODULE in $CHANGED_MODULES; do
   echo "Building $MODULE module..."
-  mvn clean package -pl $MODULE -am -DskipTests
+  mvn clean package -pl $MODULE -am -DskipTests -U
 done
 
 echo "Build completed successfully"
