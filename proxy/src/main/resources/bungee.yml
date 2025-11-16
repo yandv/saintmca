@@ -1,0 +1,6 @@
+name: saintmc-proxy
+version: '0.0.1'
+main: br.com.saintmc.Main
+author: SaintMC
+description: Proxy principal do SaintMC
+

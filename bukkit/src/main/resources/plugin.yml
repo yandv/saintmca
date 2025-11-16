@@ -1,0 +1,7 @@
+name: saintmc-bukkit
+version: '0.0.1'
+main: br.com.saintmc.BukkitMain
+api-version: 1.13
+author: SaintMC
+description: Plugin principal do SaintMC
+
